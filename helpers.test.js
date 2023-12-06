@@ -28,5 +28,12 @@ describe("Helpers test with setup and teardown", function() {
     afterEach( function() {
         billAmtInput = "";
         tipAmtInput = "";
+        paymentTbody.innerHTML = '';
+        summaryTds[0].innerHTML = '';
+        summaryTds[1].innerHTML = '';
+        summaryTds[2].innerHTML = '';
+        serverTbody.innerHTML = '';
+        allPayments = {};
+        paymentId = 0;
     });
 })

@@ -13,13 +13,20 @@ paymentForm.addEventListener('submit', submitPaymentInfo);
 // Add a curPayment object to allPayments, update html and reset input values
 function submitPaymentInfo(evt) {
   if (evt) evt.preventDefault(); // when running tests there is no event
-
   let curPayment = createCurPayment();
+
+  // console.log("curPayment1", curPayment);
+
+  // if (curPayment === "undefined") {
+  //   alert("Current payment is undefined");
+  //   return;
+  // }
 
   if (curPayment) {
     paymentId += 1;
 
     allPayments['payment' + paymentId] = curPayment;
+    console.log("curPayment2",curPayment);
 
     appendPaymentTable(curPayment);
     updateServerTable();
@@ -36,7 +43,7 @@ function createCurPayment() {
   let billAmt = billAmtInput.value;
   let tipAmt = tipAmtInput.value;
 
-  if (billAmt === '' || tipAmt === '') return;
+  if (billAmt === '' || tipAmt === '' || billAmt === 'undefined' || tipAmt === 'undefined') return;
 
   if (Number(billAmt) > 0 && Number(tipAmt) >= 0) {
     return {
@@ -55,6 +62,8 @@ function appendPaymentTable(curPayment) {
   appendTd(newTr, '$' + curPayment.billAmt);
   appendTd(newTr, '$' + curPayment.tipAmt);
   appendTd(newTr, curPayment.tipPercent + '%');
+
+  appendDeleteBtn(newTr)
 
   paymentTbody.append(newTr);
 }
@@ -75,4 +84,3 @@ function updateSummary() {
   summaryTds[1].innerHTML = '$' + sumPaymentTotal('tipAmt');
   summaryTds[2].innerHTML =  Math.round(tipPercentAvg) + '%';
 }
-
